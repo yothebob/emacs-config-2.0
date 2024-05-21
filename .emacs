@@ -31,6 +31,8 @@
 (global-set-key (kbd "C-c b q") 'buffer-query)
 (straight-use-package
  '(bb-mode :type git :host github :repo "yothebob/bb-mode"))
+(require 'bb-mode)
+(require 'buffer-query)
 
 ;; this was orignally set to replace and it was driving me crazy
 (global-set-key (kbd "M-%") 'replace-regexp)
@@ -44,8 +46,6 @@
 (add-hook 'python-mode-hook #'eglot-ensure)
 (add-hook 'rust-mode-hook 'eglot-ensure)
 
-
-(global-company-mode 1)
 (global-set-key [f9] 'menu-bar-mode)
 (menu-bar-mode 0)
 (display-time)
@@ -53,24 +53,10 @@
 (cua-mode 0)
 (scroll-bar-mode 0)
 
-(use-package ace-window
-  :demand
-  :bind
-  ("M-o" . ace-window))
-
 (global-set-key (kbd "C-s") 'isearch-forward)
 (global-set-key [(control shift s)] 'rgrep)
 (global-set-key (kbd "C-c f r") 'replace-string)
 (global-set-key (kbd "C-c f d") 'find-name-dired)
-
-(use-package avy
-  :bind (("C-;" . 'avy-goto-char) ("C-:" . 'avy-goto-char-2)))
-
-(use-package all
-  :bind (("C-x a l" . 'all)))
-
-(use-package dumb-jump
-  :bind (("C-c j d" . 'dumb-jump-go)))
 
 (global-set-key (kbd "C-c p f") 'project-find-file)
 (put 'upcase-region 'disabled nil)
@@ -81,51 +67,8 @@
 (setq org-edit-src-content-indentation 0)
 (setq org-src-preserve-indentation t)
 
-;; multiple cursors
-(global-set-key (kbd "C-c m c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-word-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-word-like-this)
-
-;; better paste (using cuda keys)
-(use-package browse-kill-ring
-    :demand
-    :bind
-    ("C-S-v" . browse-kill-ring))
-
-(use-package flycheck)
-(global-flycheck-mode)
-
-(use-package wgrep
-  :config (require 'wgrep))
-
-(global-set-key (kbd "C-c e p") 'prettier-prettify)
-
-(add-hook 'diary-hook 'appt-make-list)
-(diary 0)
-(appt-activate)
-(setq org-agenda-include-diary t)
-
 (setq warning-minimum-level :emergency)
 ;;(setq warning-minimum-level :warning)
-
-(use-package emojify
-  :hook (after-init . global-emojify-mode))
-(require 'company-emojify)
-(add-to-list 'company-backends 'company-emojify)
-(add-hook 'after-init-hook #'global-emojify-mode)
-(add-hook 'markdown-mode-hook 'ac-emoji-setup)
-(add-hook 'git-commit-mode-hook 'ac-emoji-setup)
-
-(use-package all-the-icons
-  :if (display-graphic-p))
-
-(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.twig\\'" . web-mode))
-
-(global-set-key (kbd "C-c w m") '(lambda ()
-  (interactive)
-  (web-mode)(emmet-mode)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -160,8 +103,6 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Ubuntu Mono" :foundry "DAMA" :slant normal :weight regular :height 120 :width normal)))))
 ;; To increase the font size, type 'C-x C-M-+' or 'C-x C-M-='; to decrease it, type 'C-x C-M--'; 
-(bb-update-music-player "g")
-(bb-use-eaf "n")
 (server-start)
 (cua-mode)
 
@@ -172,10 +113,6 @@
 ;; (global-set-key (kbd "s-d") 'dmenu)
 ;; for some reason the CDN works here, but not at home
 ;; #+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
-(require 'doom-modeline)
-(require 'nerd-icons)
-(doom-modeline-mode 1)
-(global-set-key (kbd "C-h D") 'devdocs-lookup)
 
 (add-to-list 'display-buffer-alist '("*Async Shell Command*" display-buffer-no-window (nil)))
 ;; (add-hook 'exwm-update-class-hook
